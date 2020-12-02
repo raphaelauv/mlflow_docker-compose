@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mlflow-db:
+    image: postgres:13.1
+    environment:
+      POSTGRES_DB: mlflowdb
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5435:5432
+  web:
+    build:
+      context: ./src/dockerfiles/mlflow/
+      dockerfile: Dockerfile
+    container_name: mlflow_server
+    environment:
+      AWS_REGION: eu-west-3
+      AWS_DEFAULT_REGION: eu-west-3
+      AWS_ACCESS_KEY_ID: localstack
+      AWS_SECRET_ACCESS_KEY: localstack
+      MLFLOW_S3_ENDPOINT_URL: http://localstack:4566
+    ports:
+      - 5000:5000
+    command: mlflow server --host 0.0.0.0 --backend-store-uri postgresql://mlflow:password@mlflow-db:5432/mlflowdb --default-artifact-root s3://test-bucket/
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '4563-4599:4563-4599'
+      - '8055:8080'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DEFAULT_REGION=eu-west-3
+      - AWS_REGION=us-west-3
+      - DATA_DIR=/tmp/localstack/data
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ./conf/s3_bootstrap.sh:/docker-entrypoint-initaws.d/01_s3_bootstrap.sh
+      - /var/run/docker.sock:/var/run/docker.sock

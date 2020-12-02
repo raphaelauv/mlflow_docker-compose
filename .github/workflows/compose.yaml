@@ -1,0 +1,14 @@
+name: Docker Compose Actions Workflow
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and check the stack
+        run: |
+          docker-compose up -d
+          pip install mlflow boto3 psycopg2-binary
+          cd src/jobs/
+          python test.py
+
