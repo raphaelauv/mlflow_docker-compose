@@ -1,5 +1,9 @@
 version: '3.8'
 
+volumes:
+  localstack-vol:
+
+
 services:
   mlflow-db:
     image: postgres:13.1
@@ -26,7 +30,7 @@ services:
     command: mlflow server --host 0.0.0.0 --backend-store-uri postgresql://mlflow:password@mlflow-db:5432/mlflowdb --default-artifact-root s3://test-bucket/
 
   localstack:
-    image: localstack/localstack:0.12.2
+    image: localstack/localstack:0.12.9.1
     environment:
       SERVICES: s3
       DEBUG: 1
@@ -37,6 +41,21 @@ services:
     volumes:
       - ./conf/s3_bootstrap.sh:/docker-entrypoint-initaws.d/01_s3_bootstrap.sh
       - /var/run/docker.sock:/var/run/docker.sock
+      - localstack-vol:/tmp/localstack
     ports:
       - 4563-4599:4563-4599
       - 8055:8080
+
+
+  localstack-s3-ui:
+    container_name: localstack-s3-ui
+    depends_on:
+      - localstack
+    image: gosuper/localstack-s3-ui
+    ports:
+      - 9000:9000
+    environment:
+      - API_REQ_FILE_PATH=/tmp/localstack/data/recorded_api_calls.json
+      - PORT=9000
+    volumes:
+      - localstack-vol:/tmp/localstack
