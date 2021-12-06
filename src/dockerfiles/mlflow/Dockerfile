@@ -1,2 +1,2 @@
-FROM python:3.7-slim-buster
-RUN pip install mlflow==1.20.2 boto3 psycopg2-binary
+FROM python:3.9-slim
+RUN pip install mlflow==1.22.0 boto3 psycopg2-binary

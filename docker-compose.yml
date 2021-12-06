@@ -26,7 +26,7 @@ services:
       AWS_SECRET_ACCESS_KEY: localstack
       MLFLOW_S3_ENDPOINT_URL: http://localstack:4566
     ports:
-      - 5000:5000
+      - "5000:5000"
     command: mlflow server --host 0.0.0.0 --backend-store-uri postgresql://mlflow:password@mlflow-db:5432/mlflowdb --default-artifact-root s3://test-bucket/
 
   localstack:
@@ -43,8 +43,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - localstack-vol:/tmp/localstack
     ports:
-      - 4563-4599:4563-4599
-      - 8055:8080
+      - "4563-4599:4563-4599"
+      - "8055:8080"
 
 
   localstack-s3-ui:
@@ -53,7 +53,7 @@ services:
       - localstack
     image: gosuper/localstack-s3-ui
     ports:
-      - 9000:9000
+      - "9000:9000"
     environment:
       - API_REQ_FILE_PATH=/tmp/localstack/data/recorded_api_calls.json
       - PORT=9000

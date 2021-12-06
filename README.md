@@ -9,3 +9,8 @@ Start a :
 docker-compose up -d
 ```
 http://localhost:5000/
+
+
+## TODO 
+
+replace localstack with miniIO
