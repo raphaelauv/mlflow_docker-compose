@@ -7,9 +7,9 @@ import mlflow as ml
 
 os.environ["AWS_DEFAULT_REGION"] = "eu-west-3"
 os.environ["AWS_REGION"] = "eu-west-3"
-os.environ["AWS_ACCESS_KEY_ID"] = "localstack"
-os.environ["AWS_SECRET_ACCESS_KEY"] = "localstack"
-os.environ["MLFLOW_S3_ENDPOINT_URL"] = "http://localhost:4566"
+os.environ["AWS_ACCESS_KEY_ID"] = "admin"
+os.environ["AWS_SECRET_ACCESS_KEY"] = "adminadmin"
+os.environ["MLFLOW_S3_ENDPOINT_URL"] = "http://localhost:9020"
 
 ml.set_tracking_uri("http://localhost:5000")
 ml.set_experiment("my-experiment")
