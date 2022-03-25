@@ -10,9 +10,5 @@ docker-compose up -d
 ```
 http://localhost:9021/
 
-user: admin
-password: adminadmin
-
-## TODO 
-
-replace localstack with miniIO
+- user: admin
+- password: adminadmin
