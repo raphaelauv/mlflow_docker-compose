@@ -6,7 +6,7 @@ volumes:
 
 services:
   mlflow-db:
-    image: postgres:13.1
+    image: postgres:14.2
     environment:
       POSTGRES_DB: mlflowdb
       POSTGRES_USER: mlflow
@@ -30,7 +30,7 @@ services:
     command: mlflow server --host 0.0.0.0 --backend-store-uri postgresql://mlflow:password@mlflow-db:5432/mlflowdb --default-artifact-root s3://test-bucket/
 
   minio:
-    image: minio/minio:RELEASE.2021-12-20T22-07-16Z
+    image: minio/minio:RELEASE.2022-03-26T06-49-28Z
     command: server /data --console-address ":9001"
     ports:
       - "9020:9000"
