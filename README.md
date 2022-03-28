@@ -8,7 +8,11 @@ Start a :
 ```shell
 docker-compose up -d
 ```
-http://localhost:9021/
+minio UI -> http://localhost:9021/
 
 - user: admin
 - password: adminadmin
+
+
+MLflow UI -> http://localhost:5000/
+
