@@ -1,4 +1,4 @@
-# MLflow docker-compose
+# MLflow docker compose
 
 Start a :
  - Postgre SQL database
@@ -6,7 +6,7 @@ Start a :
  - MLflow server 
 
 ```shell
-docker-compose up -d
+docker compose up -d
 ```
 minio UI -> http://localhost:9021/
 
