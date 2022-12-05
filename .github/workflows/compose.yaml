@@ -21,7 +21,3 @@ jobs:
           cd src/jobs/
           sleep 10
           python test.py
-
-
-
-
