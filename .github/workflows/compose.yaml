@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9', '3.10' , '3.11' ]
+        python-version: [ '3.9', '3.10' , '3.11' , '3.12' ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -17,6 +17,7 @@ jobs:
           docker compose build
           docker compose up -d
           python -m pip install --upgrade pip
+          pip install setuptools --upgrade
           pip install -r src/dockerfiles/mlflow/requirements.txt
           cd src/jobs/
           sleep 10
