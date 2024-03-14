@@ -6,7 +6,7 @@ volumes:
 
 services:
   mlflow-db:
-    image: postgres:16.1
+    image: postgres:16.2
     environment:
       POSTGRES_DB: mlflowdb
       POSTGRES_USER: mlflow
