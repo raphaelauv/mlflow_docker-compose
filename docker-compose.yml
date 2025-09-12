@@ -1,12 +1,10 @@
-version: '3.8'
-
 volumes:
   localstack-vol:
 
 
 services:
   mlflow-db:
-    image: postgres:16.2
+    image: postgres:17.6
     environment:
       POSTGRES_DB: mlflowdb
       POSTGRES_USER: mlflow
@@ -30,7 +28,7 @@ services:
     command: mlflow server --host 0.0.0.0 --workers 1 --backend-store-uri postgresql://mlflow:password@mlflow-db:5432/mlflowdb --default-artifact-root s3://test-bucket/
 
   minio:
-    image: minio/minio:RELEASE.2023-12-23T07-19-11Z
+    image: minio/minio:RELEASE.2025-02-07T23-21-09Z
     command: server /data --console-address ":9001"
     ports:
       - "9020:9000"
@@ -41,14 +39,14 @@ services:
       MINIO_SITE_REGION: eu-west-3
 
   createbuckets:
-    image: minio/mc
+    image: minio/mc:RELEASE.2025-02-15T10-36-16Z
     depends_on:
       - minio
     entrypoint: >
       /bin/sh -c "
-      echo sleep 30;
-      sleep 30;
+      echo sleep 10;
+      sleep 10;
       /usr/bin/mc config host add myminio http://minio:9000 admin adminadmin;
-      /usr/bin/mc mb myminio/test-bucket;
+      /usr/bin/mc mb myminio/test-bucket; 
       exit 0;
       "
