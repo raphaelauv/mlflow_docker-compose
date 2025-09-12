@@ -1,5 +1,4 @@
-FROM python:3.12-slim
-ENV PIP_NO_CACHE_DIR=TRUE
-ENV PIP_DISABLE_PIP_VERSION_CHECK=TRUE
+FROM python:3.13-slim
+COPY --from=ghcr.io/astral-sh/uv:0.8.17 /uv /uvx /bin/
 COPY requirements.txt ./requirements.txt
-RUN python3 -m pip install -r requirements.txt
+RUN uv pip --no-cache install -r requirements.txt  --system
